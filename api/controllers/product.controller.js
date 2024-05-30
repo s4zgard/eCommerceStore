@@ -1,15 +1,17 @@
 import Product from "../models/product.model.js";
+import asyncHandler from "../middlewares/asyncHandler.js";
 
-export const getProducts = async (req, res) => {
-  try {
-    const products = await Product.find();
-    res.status(200).json(products);
-  } catch (error) {}
-};
+export const getProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find();
+  res.status(200).json(products);
+});
 
-export const getProduct = async (req, res) => {
-  try {
-    const product = await Product.findById(req.params.productId);
-    res.status(200).json(product);
-  } catch (error) {}
-};
+export const getProduct = asyncHandler(async (req, res) => {
+  const product = await Product.findById(req.params.productId);
+  if (product) {
+    return res.status(200).json(product);
+  } else {
+    res.status(404);
+    throw new Error("Product not found");
+  }
+});
