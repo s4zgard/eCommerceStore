@@ -1,0 +1,17 @@
+{
+  "name": "eCommerceStore",
+  "version": "1.0.0",
+  "description": "eCommerce App built with MERN",
+  "main": "server.js",
+  "type": "module",
+  "repository": "https://github.com/s4zgard/eCommerceStore.git",
+  "author": "Sajjad Ahmed <s4zgard@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "scripts": {
+    "start": "node api/server.js",
+    "dev": "nodemon api/server.js"
+  }
+}
