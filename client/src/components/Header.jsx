@@ -1,13 +1,17 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
-import { LinkContainer } from "react-router-bootstrap";
 import logo from "/logo.svg";
+import { LinkContainer } from "react-router-bootstrap";
+import { Link, useLocation } from "react-router-dom";
+
 const Header = () => {
+  const { pathname } = useLocation();
+  console.log(pathname);
   return (
     <header>
       <Navbar bg="dark" variant="dark" expand="md" collapseOnSelect>
         <Container>
-          <LinkContainer to="/">
+          <Link to="/" className="text-decoration-none">
             <Navbar.Brand className="d-flex align-items-center gap-2">
               <img
                 src={logo}
@@ -16,23 +20,24 @@ const Header = () => {
               />
               FooshaStore
             </Navbar.Brand>
-          </LinkContainer>
+          </Link>
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-              <LinkContainer to="/cart">
-                <Nav.Link>
+              {/* Use JavaScript default parameters for clarity */}
+              <Link to="/cart" className="text-decoration-none">
+                <Nav.Link as="div" active={pathname === "/cart"}>
                   <FaShoppingCart /> Cart
                 </Nav.Link>
-              </LinkContainer>
+              </Link>
 
-              <LinkContainer to="/sign-in">
-                <Nav.Link>
+              <Link to="/sign-in" className="text-decoration-none">
+                <Nav.Link as="div" active={pathname === "/sign-in"}>
                   <FaUser /> Sign In
                 </Nav.Link>
-              </LinkContainer>
+              </Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -40,4 +45,5 @@ const Header = () => {
     </header>
   );
 };
+
 export default Header;

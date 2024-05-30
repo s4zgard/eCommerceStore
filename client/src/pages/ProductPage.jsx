@@ -9,11 +9,25 @@ import {
   Row,
 } from "react-bootstrap";
 import Rating from "../components/Rating";
-import products from "../products";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const ProductPage = () => {
+  const [product, setProduct] = useState([]);
   const { productId } = useParams();
-  const product = products.find((p) => p._id === productId);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const { data } = await axios.get(`/api/products/${productId}`);
+        setProduct(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+    fetchProducts();
+  }, [productId]);
+
   return (
     <>
       <Link className="btn btn-light my-3" to="/">

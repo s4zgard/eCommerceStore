@@ -12,6 +12,12 @@
   },
   "scripts": {
     "start": "node api/server.js",
-    "dev": "nodemon api/server.js"
+    "server": "nodemon api/server.js",
+    "client": "cd client && yarn dev",
+    "dev": "concurrently \"yarn server\" \"yarn client\""
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5",
+    "concurrently": "^8.2.2"
   }
 }
