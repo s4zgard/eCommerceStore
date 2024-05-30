@@ -8,6 +8,8 @@
   "author": "Sajjad Ahmed <s4zgard@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
     "express": "^4.19.2",
     "mongoose": "^8.4.0"
   },
@@ -15,7 +17,9 @@
     "start": "node api/server.js",
     "server": "nodemon api/server.js",
     "client": "cd client && yarn dev",
-    "dev": "concurrently \"yarn server\" \"yarn client\""
+    "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "data:import": "node api/seeder.js",
+    "data:destroy": "node api/seeder.js -d"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
