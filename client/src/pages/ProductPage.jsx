@@ -1,9 +1,10 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useGetProductByIdQuery } from "../store/slices/productApiSlice";
 import {
   Button,
   Card,
   Col,
+  Form,
   Image,
   ListGroup,
   ListGroupItem,
@@ -12,14 +13,25 @@ import {
 import Rating from "../components/Rating";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import { useState } from "react";
+import { addToCart } from "../store/slices/cartSlice";
+import { useDispatch } from "react-redux";
 
 const ProductPage = () => {
+  const [qty, setQty] = useState(1);
   const { productId } = useParams();
   const {
     currentData: product,
     isFetching,
     error,
   } = useGetProductByIdQuery(productId);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const cartHandler = () => {
+    dispatch(addToCart({ ...product, qty }));
+    navigate("/cart");
+  };
 
   return (
     <>
@@ -58,13 +70,14 @@ const ProductPage = () => {
             <Col md="3">
               <Card>
                 <ListGroup variant="flush">
-                  <ListGroupItem>
+                  <ListGroup.Item>
                     <Row>
                       <Col>Price:</Col>
                       <Col>${product.price}</Col>
                     </Row>
-                  </ListGroupItem>
-                  <ListGroupItem>
+                  </ListGroup.Item>
+
+                  <ListGroup.Item>
                     <Row>
                       <Col>Status:</Col>
                       <Col>
@@ -75,16 +88,43 @@ const ProductPage = () => {
                         )}
                       </Col>
                     </Row>
-                  </ListGroupItem>
-                  <ListGroupItem>
+                  </ListGroup.Item>
+
+                  {product.countInStock > 0 && (
+                    <ListGroup.Item>
+                      <Row>
+                        <Col>Qty:</Col>
+                        <Col>
+                          <Form.Control
+                            value={qty}
+                            as="select"
+                            onChange={(e) => setQty(e.target.value)}
+                          >
+                            {[
+                              ...Array(product.countInStock)
+                                .keys()
+                                .map((x) => (
+                                  <option key={x + 1} value={Number(x + 1)}>
+                                    {x + 1}
+                                  </option>
+                                )),
+                            ]}
+                          </Form.Control>
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
+                  )}
+
+                  <ListGroup.Item>
                     <Button
                       className="btn-block btn-dark"
                       type="button"
-                      disabled={product.countInStock === 0}
+                      disabled={product.countInStock <= 0}
+                      onClick={cartHandler}
                     >
                       Add to Cart
                     </Button>
-                  </ListGroupItem>
+                  </ListGroup.Item>
                 </ListGroup>
               </Card>
             </Col>
