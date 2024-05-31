@@ -1,12 +1,13 @@
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Badge, Container, Nav, Navbar } from "react-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import logo from "/logo.svg";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const { pathname } = useLocation();
-
+  const { cartItems } = useSelector((state) => state.cart);
   return (
     <header>
       <Navbar bg="dark" variant="dark" expand="md" collapseOnSelect>
@@ -29,7 +30,12 @@ const Header = () => {
               {/* Use JavaScript default parameters for clarity */}
               <Link to="/cart" className="text-decoration-none">
                 <Nav.Link as="div" active={pathname === "/cart"}>
-                  <FaShoppingCart /> Cart
+                  <FaShoppingCart /> Cart{" "}
+                  {cartItems.length > 0 && (
+                    <Badge pill bg="success">
+                      {cartItems.reduce((a, c) => a + Number(c.qty), 0)}
+                    </Badge>
+                  )}
                 </Nav.Link>
               </Link>
 
