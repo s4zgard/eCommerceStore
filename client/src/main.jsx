@@ -3,14 +3,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
+import HomePage from "./pages/HomePage";
+import ProductPage from "./pages/ProductPage";
+import { Provider } from "react-redux";
+import store from "./store";
 import {
   Route,
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import ProductPage from "./pages/ProductPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,4 +28,8 @@ const router = createBrowserRouter(
 const el = document.getElementById("root");
 const root = ReactDOM.createRoot(el);
 
-root.render(<RouterProvider router={router} />);
+root.render(
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
+);
