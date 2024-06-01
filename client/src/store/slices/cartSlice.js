@@ -16,14 +16,19 @@ const cartSlice = createSlice({
 
       if (existItem) {
         state.cartItems = state.cartItems.map((p) =>
-          p._id === existItem._id ? existItem : p
+          p._id === existItem._id ? item : p
         );
       } else {
         state.cartItems = [...state.cartItems, item];
       }
       return updateCart(state);
     },
+    removeFromCart: (state, action) => {
+      state.cartItems = state.cartItems.filter((i) => i._id !== action.payload);
+
+      return updateCart(state);
+    },
   },
 });
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, removeFromCart } = cartSlice.actions;
 export default cartSlice.reducer;
