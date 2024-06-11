@@ -18,8 +18,8 @@
   "scripts": {
     "start": "node api/server.js",
     "server": "nodemon api/server.js",
-    "client": "cd client && yarn dev",
-    "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "client": "npm --prefix client run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "data:import": "node api/seeder.js",
     "data:destroy": "node api/seeder.js -d"
   },

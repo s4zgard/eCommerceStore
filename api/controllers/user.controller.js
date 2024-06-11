@@ -4,19 +4,28 @@ import generateToken from "../utils/generateToken.js";
 
 export const signIn = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
-  const yes = await user.matchPassword(req.body.password, user.password);
-  if (user && yes) {
+
+  if (!user) {
+    // No user found with the provided email
+    res.status(401);
+    throw new Error("Invalid email or password");
+  }
+
+  // Check if the password matches
+  const isMatch = await user.matchPassword(req.body.password);
+
+  if (isMatch) {
+    // Password is correct, generate token and send response
     generateToken(res, user._id);
 
     res.json({
-      user: {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        isAdmin: user.isAdmin,
-      },
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
     });
   } else {
+    // Password doesn't match
     res.status(401);
     throw new Error("Invalid email or password");
   }

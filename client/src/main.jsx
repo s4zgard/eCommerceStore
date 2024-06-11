@@ -14,6 +14,7 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import CartPage from "./pages/CartPage";
+import LoginPage from "./pages/LoginPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,7 +22,7 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<HomePage />} />
       <Route path="/product/:productId" element={<ProductPage />} />
       <Route path="/cart" element={<CartPage />} />
-      <Route path="/sign-in" element={<h1>Sign-in</h1>} />
+      <Route path="/sign-in" element={<LoginPage />} />
     </Route>
   )
 );
