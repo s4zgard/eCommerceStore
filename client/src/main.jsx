@@ -5,6 +5,9 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
+import RegisterPage from "./pages/RegisterPage";
+import CartPage from "./pages/CartPage";
+import LoginPage from "./pages/LoginPage";
 import { Provider } from "react-redux";
 import store from "./store";
 import {
@@ -13,8 +16,6 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import CartPage from "./pages/CartPage";
-import LoginPage from "./pages/LoginPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
       <Route path="/product/:productId" element={<ProductPage />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/sign-in" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
     </Route>
   )
 );
