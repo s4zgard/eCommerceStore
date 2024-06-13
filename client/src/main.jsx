@@ -16,6 +16,9 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
+import ShippingPage from "./pages/ShippingPage";
+import PrivateRoute from "./components/PrivateRoute";
+import PaymentPage from "./pages/PaymentPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +28,13 @@ const router = createBrowserRouter(
       <Route path="/cart" element={<CartPage />} />
       <Route path="/sign-in" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+
+      <Route path="" element={<PrivateRoute />}>
+        <Route path="/shipping" element={<ShippingPage />} />
+        <Route path="/payment" element={<PaymentPage />} />
+      </Route>
+
+      <Route path="*" element={<h1>404 Not Found</h1>} />
     </Route>
   )
 );

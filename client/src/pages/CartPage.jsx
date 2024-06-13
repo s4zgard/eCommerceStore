@@ -29,7 +29,7 @@ const CartPage = () => {
   };
 
   const checkoutHandler = () => {
-    navigate("/sign-in?reditirect=shipping");
+    navigate("/sign-in?redirect=/shipping");
   };
 
   return (
