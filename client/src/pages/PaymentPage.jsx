@@ -16,7 +16,11 @@ const PaymentPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!shippingAddress) {
+    if (
+      !shippingAddress ||
+      Object.keys(shippingAddress).length === 0 ||
+      !shippingAddress.address
+    ) {
       toast.info("Please fill shipping address first.");
       navigate("/shipping");
     }
@@ -24,7 +28,7 @@ const PaymentPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(savePaymentMethod({ paymentMethod }));
+    dispatch(savePaymentMethod(paymentMethod));
     navigate("/placeorder");
   };
   return (
