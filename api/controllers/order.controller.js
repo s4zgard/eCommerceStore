@@ -32,7 +32,7 @@ export const create = asyncHandler(async (req, res) => {
     });
 
     const createdOrder = await order.save();
-    res.status(201).json(createdOrder);
+    res.status(200).json(createdOrder);
   }
 });
 
@@ -75,9 +75,21 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
 });
 
 export const updateOrderToDelivered = asyncHandler(async (req, res) => {
-  res.send("Delvered order");
+  const order = await Order.findById(req.params.orderId);
+  if (order) {
+    order.isDelivered = true;
+    order.deliveredAt = Date.now();
+
+    const updatedOrder = order.save();
+
+    res.status(200).json(updatedOrder);
+  } else {
+    res.status(404);
+    throw new Error("Order not found.");
+  }
 });
 
 export const getOrders = asyncHandler(async (req, res) => {
-  res.send("All order");
+  const orders = await Order.find({}).populate("user", "id name");
+  res.status(200).json(orders);
 });

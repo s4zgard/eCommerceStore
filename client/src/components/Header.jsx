@@ -1,4 +1,11 @@
-import { Badge, Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
+import {
+  Badge,
+  Container,
+  Dropdown,
+  Nav,
+  NavDropdown,
+  Navbar,
+} from "react-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import logo from "/logo.svg";
 import { LinkContainer } from "react-router-bootstrap";
@@ -57,6 +64,25 @@ const Header = () => {
 
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id="username">
+                  {userInfo.isAdmin && (
+                    <>
+                      <Dropdown.Divider />
+                      <Dropdown.Header>Admin</Dropdown.Header>
+
+                      <LinkContainer to="/admin/products">
+                        <NavDropdown.Item>Products</NavDropdown.Item>
+                      </LinkContainer>
+
+                      <LinkContainer to="/admin/users">
+                        <NavDropdown.Item>Users</NavDropdown.Item>
+                      </LinkContainer>
+
+                      <LinkContainer to="/admin/orders">
+                        <NavDropdown.Item>Orders</NavDropdown.Item>
+                      </LinkContainer>
+                      <Dropdown.Divider />
+                    </>
+                  )}
                   <LinkContainer to="/profile">
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>

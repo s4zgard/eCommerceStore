@@ -1,7 +1,7 @@
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import FormContainer from "../components/FormConatiner";
+import FormContainer from "../components/FormContainer";
 import { useEffect, useState } from "react";
 import Loader from "../components/Loader";
 import { useRegisterMutation } from "../store/slices/userApiSlice";
@@ -96,15 +96,15 @@ const LoginPage = () => {
           className="my-3"
           disabled={isLoading}
         >
-          Sign In
+          Register
         </Button>
         {isLoading && <Loader />}
       </Form>
       <Row>
         <Col>
-          New Customer?{" "}
-          <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>
-            Register
+          Already have an account?
+          <Link to={redirect ? `/sign-in?redirect=${redirect}` : "/sign-in"}>
+            Sign In
           </Link>
         </Col>
       </Row>

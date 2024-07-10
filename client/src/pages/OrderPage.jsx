@@ -3,6 +3,7 @@ import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import {
+  useDelivereOrderMutation,
   useGetOrderByIdQuery,
   useGetPaypalIdQuery,
   usePayOrderMutation,
@@ -23,6 +24,9 @@ const OrderPage = () => {
   } = useGetOrderByIdQuery(orderId);
 
   const [payOrder, { isLoading: payLoading }] = usePayOrderMutation();
+  const [deliverOrder, { isLoading: deliverLoading }] =
+    useDelivereOrderMutation();
+
   const [{ isPending }, payPalDispatch] = usePayPalScriptReducer();
   const {
     data: paypal,
@@ -87,6 +91,16 @@ const OrderPage = () => {
         return orderId;
       });
   }
+
+  const handleDeliver = async () => {
+    try {
+      await deliverOrder(orderId).unwrap();
+      refetch();
+      toast.success("Order delivered.");
+    } catch (error) {
+      toast.error(error?.data?.message || error.error);
+    }
+  };
 
   return isLoading ? (
     <Loader />
@@ -207,6 +221,22 @@ const OrderPage = () => {
                   )}
                 </ListGroup.Item>
               )}
+
+              {deliverLoading && <Loader />}
+              {userInfo &&
+                userInfo.isAdmin &&
+                order.isPaid &&
+                !order.isDelivered && (
+                  <ListGroup.Item>
+                    <Button
+                      type="button"
+                      className="btn btn-block"
+                      onClick={handleDeliver}
+                    >
+                      Mark As Delivered
+                    </Button>
+                  </ListGroup.Item>
+                )}
             </ListGroup>
           </Card>
         </Col>

@@ -19,10 +19,15 @@ import {
 } from "react-router-dom";
 import ShippingPage from "./pages/ShippingPage";
 import PrivateRoute from "./components/PrivateRoute";
+import AdminRoute from "./components/AdminRoute";
 import PaymentPage from "./pages/PaymentPage";
 import PlaceorderPage from "./pages/PlaceorderPage";
 import OrderPage from "./pages/OrderPage";
 import ProfilePage from "./pages/ProfilePage";
+import OrdersListPage from "./pages/admin/OrdersListPage";
+import ProductsListPage from "./pages/admin/ProductsListPage";
+import UsersListPage from "./pages/admin/UsersListPage";
+import ProductEditPage from "./pages/admin/ProductEditPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,6 +37,16 @@ const router = createBrowserRouter(
       <Route path="/cart" element={<CartPage />} />
       <Route path="/sign-in" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+
+      <Route path="" element={<AdminRoute />}>
+        <Route path="/admin/products" element={<ProductsListPage />} />
+        <Route
+          path="/admin/product/edit/:productId"
+          element={<ProductEditPage />}
+        />
+        <Route path="/admin/users" element={<UsersListPage />} />
+        <Route path="/admin/orders" element={<OrdersListPage />} />
+      </Route>
 
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<ProfilePage />} />
