@@ -1,5 +1,5 @@
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Image } from "react-bootstrap";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 import {
@@ -139,6 +139,9 @@ const ProductEditPage = () => {
               onChange={handleUpload}
               accept="image/png, image/jpeg"
             />
+            {image && (
+              <Image src={image} style={{ height: "150px", width: "200px" }} />
+            )}
           </Form.Group>
 
           <Form.Group controlId="brand" className="my-2">
