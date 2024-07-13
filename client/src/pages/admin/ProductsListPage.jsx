@@ -89,7 +89,7 @@ const ProductListPage = () => {
                   <td>
                     <Button
                       as={Link}
-                      to={`/admin/product/${product._id}/edit`}
+                      to={`/admin/product/edit/${product._id}`}
                       variant="light"
                       className="btn-sm mx-2"
                     >
