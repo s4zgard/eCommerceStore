@@ -2,8 +2,14 @@ import Product from "../models/product.model.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
 
 export const getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find();
-  res.status(200).json(products);
+  const items = 4;
+  const page = Number(req.query.pageNumber) || 1;
+  const count = await Product.countDocuments();
+
+  const products = await Product.find()
+    .limit(items)
+    .skip(items * (page - 1));
+  res.status(200).json({ products, page, pages: Math.ceil(count / items) });
 });
 
 export const getProduct = asyncHandler(async (req, res) => {
