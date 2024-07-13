@@ -4,6 +4,7 @@ import Product from "../components/Product";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { useGetProductsQuery } from "../store/slices/productApiSlice";
+import Meta from "../components/Meta";
 import Paginate from "../components/Paginate";
 import ProductCarousel from "../components/ProductCarousel";
 
@@ -16,6 +17,7 @@ const HomePage = () => {
 
   return (
     <>
+      <Meta />
       {!keyword ? (
         <ProductCarousel />
       ) : (

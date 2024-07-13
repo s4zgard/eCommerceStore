@@ -9,6 +9,7 @@ import RegisterPage from "./pages/RegisterPage";
 import CartPage from "./pages/CartPage";
 import LoginPage from "./pages/LoginPage";
 import { Provider } from "react-redux";
+import { HelmetProvider } from "react-helmet-async";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import store from "./store";
 import {
@@ -75,8 +76,10 @@ const root = ReactDOM.createRoot(el);
 
 root.render(
   <Provider store={store}>
-    <PayPalScriptProvider deferLoading={true}>
-      <RouterProvider router={router} />
-    </PayPalScriptProvider>
+    <HelmetProvider>
+      <PayPalScriptProvider deferLoading={true}>
+        <RouterProvider router={router} />
+      </PayPalScriptProvider>
+    </HelmetProvider>
   </Provider>
 );
