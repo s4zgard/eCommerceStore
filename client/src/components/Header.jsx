@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSignOutMutation } from "../store/slices/userApiSlice";
 import { logout } from "../store/slices/authSlice";
 import { toast } from "react-toastify";
+import SearchBar from "./SearchBar";
 
 const Header = () => {
   const { pathname } = useLocation();
@@ -51,6 +52,7 @@ const Header = () => {
 
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
+              <SearchBar />
               <LinkContainer to="/cart">
                 <Nav.Link active={pathname === "/cart"}>
                   <FaShoppingCart /> Cart{" "}
