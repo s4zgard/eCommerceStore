@@ -19,10 +19,11 @@
   "scripts": {
     "start": "node api/server.js",
     "server": "nodemon api/server.js",
-    "client": "npm --prefix client run dev",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "cd client && yarn dev",
+    "dev": "concurrently \"yarn server\" \"yarn client\"",
     "data:import": "node api/seeder.js",
-    "data:destroy": "node api/seeder.js -d"
+    "data:destroy": "node api/seeder.js -d",
+    "build": "yarn && cd client && yarn && yarn build"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
