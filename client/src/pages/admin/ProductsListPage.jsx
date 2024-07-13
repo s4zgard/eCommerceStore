@@ -14,7 +14,9 @@ import { toast } from "react-toastify";
 const ProductListPage = () => {
   const { pageNumber } = useParams();
   console.log(pageNumber);
-  const { data, isLoading, error, refetch } = useGetProductsQuery(pageNumber);
+  const { data, isLoading, error, refetch } = useGetProductsQuery({
+    pageNumber,
+  });
 
   const [deleteProduct, { isLoading: loadingDelete }] =
     useDeleteProductMutation();
