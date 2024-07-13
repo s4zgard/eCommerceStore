@@ -21,7 +21,7 @@ const ProductListPage = () => {
   const [deleteProduct, { isLoading: loadingDelete }] =
     useDeleteProductMutation();
 
-  const deleteHandler = async (id) => {
+  const handleDelete = async (id) => {
     if (window.confirm("Are you sure")) {
       try {
         await deleteProduct(id);
@@ -35,7 +35,7 @@ const ProductListPage = () => {
   const [createProduct, { isLoading: loadingCreate }] =
     useCreateProductMutation();
 
-  const createProductHandler = async () => {
+  const handleCreate = async () => {
     if (window.confirm("Are you sure you want to create a new product?")) {
       try {
         await createProduct();
@@ -53,7 +53,7 @@ const ProductListPage = () => {
           <h1>Products</h1>
         </Col>
         <Col className="text-end">
-          <Button className="my-3" onClick={createProductHandler}>
+          <Button className="my-3" onClick={handleCreate}>
             <FaPlus /> Create Product
           </Button>
         </Col>
@@ -98,7 +98,7 @@ const ProductListPage = () => {
                     <Button
                       variant="danger"
                       className="btn-sm"
-                      onClick={() => deleteHandler(product._id)}
+                      onClick={() => handleDelete(product._id)}
                     >
                       <FaTrash style={{ color: "white" }} />
                     </Button>
